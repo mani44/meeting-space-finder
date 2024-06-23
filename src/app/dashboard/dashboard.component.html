@@ -1,0 +1,20 @@
+<div fxLayout="row">
+  <div fxLayout="column" fxFlex="100">
+    <mat-toolbar color="primary" class="toolbar">
+      <div class="nav-left">
+        <h2 class="dashboard-heading">Meeting Space Finder</h2>
+      </div>
+      <div class="nav-right">
+        <span class="username">{{ username }}</span>
+        <button class="logout-button" (click)="logout()">Logout</button>
+      </div>
+    </mat-toolbar>
+  </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="center">
+  <div fxLayout="column" fxFlex="70">
+    <app-meeting-room></app-meeting-room>
+    <app-upcoming-meetings></app-upcoming-meetings>
+    <app-rooms-meeting-details></app-rooms-meeting-details>
+  </div>
+</div>

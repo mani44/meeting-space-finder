@@ -1,0 +1,97 @@
+ .mat-dialog-container {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .dialog-content {
+    width: 690px;
+ }
+
+ .header {
+    margin-right: 10px;
+ }
+
+ .form-row {
+     margin-bottom: 20px;
+ }
+
+ label {
+     font-weight: bold;
+ }
+
+ input[type="text"],
+ input[type="date"],
+ input[type="time"],
+ textarea {
+     width: 100%;
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+ }
+
+ .search-rooms button {
+     padding: 10px 20px;
+     border: none;
+     border-radius: 4px;
+     cursor: pointer;
+     background-color: #007bff;
+     color: #fff;
+ }
+
+ .search-rooms button:disabled {
+     background-color: #ccc;
+     cursor: not-allowed;
+ }
+
+ .dialog-content {
+     display: flex;
+     flex-direction: column;
+ }
+
+ .form-row {
+     display: flex;
+     flex-direction: column ;
+     justify-content: space-between;
+ }
+
+ .form-row label {
+     margin-right: 10px;
+ }
+
+ .form-row input,
+ .form-row textarea {
+     flex: 1;
+ }
+
+ .mat-dialog-actions {
+     display: flex;
+     justify-content: flex-end;
+ }
+
+ p {
+     color: red;
+     font-size: 12px;
+ }
+
+ .search-rooms {
+     margin-left: 20px;
+     margin-top: -20px;
+     margin-bottom: 20px;
+ }
+
+ #roomName {
+     padding: 8px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+     background-color: #fff;
+     color: #333;
+     font-size: 14px;
+     width: 200px;
+     height: 36px;
+ }
+
+ #roomName option {
+     background-color: #fff;
+     color: #333;
+ }

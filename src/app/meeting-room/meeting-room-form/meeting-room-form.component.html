@@ -1,0 +1,149 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" class="header">
+  <h1 mat-dialog-title>Book Meeting Room</h1>
+  <button class="close" mat-button (click)="onNoClick()">
+    <mat-icon fontIcon="x"></mat-icon>
+  </button>
+</div>
+<div mat-dialog-content class="dialog-content">
+  <form [formGroup]="bookingForm" fxLayout="column">
+    <div class="form-row" fxLayout="row" fxLayoutGap="50px">
+      <div fxFlex="100">
+        <label for="username">User Name</label>
+        <input id="username" type="text" formControlName="username" [disabled]="true"/>
+        <div
+          *ngIf="
+            bookingForm.get('username')?.invalid &&
+            (bookingForm.get('username')?.dirty ||
+              bookingForm.get('username')?.touched)
+          "
+        >
+          <p>User Name is required.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row" fxLayout="row" fxLayoutGap="30px">
+      <div fxFlex="30">
+        <label for="date">Meeting Date</label>
+        <input id="date" type="date" formControlName="date" [min]="today" />
+        <div
+          *ngIf="
+            bookingForm.get('date')?.invalid &&
+            (bookingForm.get('date')?.dirty || bookingForm.get('date')?.touched)
+          "
+        >
+          <p>Meeting Date is required.</p>
+        </div>
+      </div>
+      <div fxFlex="30">
+        <label for="timeFrom">Start Time</label>
+        <input
+          id="timeFrom"
+          type="time"
+          formControlName="timeFrom"
+          [min]="minTimeForStartTime"
+          required
+          (change)="setMinTimeForEndTime($event)"
+        />
+        <div
+          *ngIf="
+            bookingForm.get('timeFrom')?.invalid &&
+            (bookingForm.get('timeFrom')?.dirty ||
+              bookingForm.get('timeFrom')?.touched)
+          "
+        >
+          <p>Start Time is required.</p>
+        </div>
+      </div>
+      <div fxFlex="30">
+        <label for="timeTo">End Time</label>
+        <input
+          id="timeTo"
+          type="time"
+          formControlName="timeTo"
+          [min]="minTimeForEndTime"
+          required
+        />
+        <div
+          *ngIf="
+            bookingForm.get('timeTo')?.invalid &&
+            (bookingForm.get('timeTo')?.dirty ||
+              bookingForm.get('timeTo')?.touched)
+          "
+        >
+          <p>End Time is required.</p>
+        </div>
+      </div>
+    </div>
+    <p>
+      **time should be between 09:00AM and 06:00PM, Meeting should be atleast 30
+      minutes
+    </p>
+    <p *ngIf="showInvalidTimeSelection">
+      Start time should be less than end time. Meeting should be atleast 30
+      minutes
+    </p>
+    <p *ngIf="showNotAvailable && !showInvalidTimeSelection">
+      Meeting room is not available for the selected date and time.
+    </p>
+
+    <div *ngIf="!showSearch" class="form-row">
+      <label for="roomName">Meeting Room</label>
+      <div>
+        <select id="roomName" formControlName="roomName">
+          <option hidden selected value="null">Select a room</option>
+          <option
+            *ngFor="let room of availableMeetingRooms"
+            [value]="room.name"
+          >
+            {{ room.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            bookingForm.get('roomName')?.invalid &&
+            (bookingForm.get('roomName')?.dirty ||
+              bookingForm.get('roomName')?.touched)
+          "
+        >
+          <p>Please select a meeting room.</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!showSearch" class="form-row">
+      <label for="agenda">Agenda</label>
+      <div>
+        <textarea id="agenda" formControlName="agenda"></textarea>
+        <div
+          *ngIf="
+            bookingForm.get('agenda')?.invalid &&
+            (bookingForm.get('agenda')?.dirty ||
+              bookingForm.get('agenda')?.touched)
+          "
+        >
+          <p>Agenda is required.</p>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutGap="10px" class="search-rooms">
+  <button
+    *ngIf="showSearch"
+    [disabled]="bookingForm.invalid"
+    (click)="searchRooms()"
+  >
+    Search Rooms
+  </button>
+  <button *ngIf="!showSearch" (click)="onNoClick()">Cancel</button>
+  <button
+    *ngIf="!showSearch"
+    [mat-dialog-close]="bookingForm.value"
+    [disabled]="bookingForm.invalid"
+    cdkFocusInitial
+  >
+    Book
+  </button>
+</div>

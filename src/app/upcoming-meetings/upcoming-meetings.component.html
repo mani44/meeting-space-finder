@@ -1,0 +1,28 @@
+<div class="component-container">
+  <h2>Your Upcoming Meetings</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Sr No</th>
+        <th>User Name</th>
+        <th>Agenda</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Room</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let meeting of upcomingMeetings; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ meeting.username }}</td>
+        <td>{{ meeting.agenda }}</td>
+        <td>{{ meeting.date }}</td>
+        <td>{{ meeting.timeFrom }} - {{ meeting.timeTo }}</td>
+        <td>{{ meeting.name }} <button mat-button class="button-color" (click)="deleteMeeting(meeting.id)">Delete</button></td>
+      </tr>
+      <tr *ngIf="upcomingMeetings.length === 0">
+        <td colspan="6">No records found</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
